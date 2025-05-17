@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hello Aknem</title>
+
+    <!-- Tailwind CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Cute font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        font-family: "Fredoka One", cursive;
+        background: linear-gradient(#ffe7ef, #ffdfe8);
+        margin: 0;
+        overflow-x: hidden;
+        cursor: none;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+
+      /* center wrapper fills remaining space */
+      .wrapper {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      /* floating kitty */
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-12px);
+        }
+      }
+      .animate-float {
+        animation: float 3s ease-in-out infinite;
+      }
+
+      /* particles */
+      .particle {
+        position: fixed;
+        width: 22px;
+        height: 22px;
+        z-index: 1;
+        opacity: 0.85;
+        animation: rise linear infinite;
+      }
+      .heart {
+        transform: rotate(45deg);
+        background: pink;
+      }
+      .heart::before,
+      .heart::after {
+        content: "";
+        position: absolute;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: inherit;
+      }
+      .heart::before {
+        top: -11px;
+        left: 0;
+      }
+      .heart::after {
+        left: -11px;
+        top: 0;
+      }
+      .star {
+        background: transparent;
+        border-left: 11px solid transparent;
+        border-right: 11px solid transparent;
+        border-bottom: 22px solid #ffe066;
+        transform: scale(0.75) rotate(35deg);
+      }
+      .star::before {
+        content: "";
+        position: absolute;
+        left: -11px;
+        top: 6px;
+        border-left: 11px solid transparent;
+        border-right: 11px solid transparent;
+        border-bottom: 22px solid #ffe066;
+        transform: rotate(-70deg);
+      }
+      @keyframes rise {
+        0% {
+          transform: translateY(100vh) scale(0.3) rotate(0);
+          opacity: 0;
+        }
+        20% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-10vh) scale(1) rotate(180deg);
+          opacity: 0;
+        }
+      }
+
+      /* cursor spark */
+      .spark {
+        position: fixed;
+        width: 8px;
+        height: 8px;
+        pointer-events: none;
+        border-radius: 50%;
+        z-index: 50;
+        background: radial-gradient(
+          circle,
+          #ff75c5 0%,
+          rgba(255, 117, 197, 0.2) 60%,
+          transparent 80%
+        );
+        animation: sparkfade 0.7s forwards;
+      }
+      @keyframes sparkfade {
+        to {
+          transform: scale(0);
+          opacity: 0;
+        }
+      }
+
+      /* tab styles */
+      .tab-bar {
+        @apply flex justify-center gap-2 mt-12 mb-6;
+      }
+      .tab-btn {
+        @apply px-6 py-2 bg-pink-200 text-pink-800 rounded-full transition shadow-md;
+      }
+      .tab-btn.active {
+        @apply bg-pink-500 text-white;
+      }
+      .tab-panel {
+        transition: opacity 0.25s ease, transform 0.25s ease;
+      }
+      .hidden {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      .shown {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- particles -->
+    <script>
+      const total = 45;
+      for (let i = 0; i < total; i++) {
+        const el = document.createElement("div");
+        el.className = "particle " + (Math.random() < 0.7 ? "heart" : "star");
+        el.style.left = Math.random() * 100 + "vw";
+        el.style.animationDuration = 5 + Math.random() * 6 + "s";
+        el.style.animationDelay = Math.random() * 5 + "s";
+        if (el.classList.contains("heart")) {
+          el.style.backgroundColor = `hsl(${Math.random() * 360},100%,88%)`;
+        }
+        document.body.appendChild(el);
+      }
+    </script>
+
+    <!-- sparkle cursor -->
+    <script>
+      document.addEventListener("mousemove", (e) => {
+        const s = document.createElement("div");
+        s.className = "spark";
+        s.style.left = e.clientX + "px";
+        s.style.top = e.clientY + "px";
+        document.body.appendChild(s);
+        setTimeout(() => s.remove(), 700);
+      });
+    </script>
+
+    <!-- central content wrapper -->
+    <div class="wrapper text-center">
+      <img
+        src="cf87810fc184ea7eac641e264c03f5b4.png"
+        alt="Hello Kitty"
+        class="w-32 h-32 animate-float mb-5 z-10"
+      />
+
+      <h1 class="text-pink-600 text-5xl sm:text-6xl drop-shadow-md z-10">
+        Hello <span class="text-pink-500">Aknem</span>
+      </h1>
+
+      <p class="text-pink-900 text-lg max-w-md mt-3 mb-6 z-10">
+        Discord's cutest <span class="text-red-600">and</span> fiercest
+        community.<br />
+        Join us in the <span class="text-red-600">cutest war</span> on Discord!
+      </p>
+
+      <a
+        href="https://discord.gg/yv6vZfPxvs"
+        target="_blank"
+        class="bg-pink-500 hover:bg-pink-600 text-white px-8 py-3 rounded-full text-lg transition shadow-md z-10"
+      >
+        Join the Cutest War
+      </a>
+
+      <!-- tab bar -->
+      <div id="tabs" class="tab-bar z-10">
+        <button class="tab-btn active" data-tab="about">About</button>
+        <button class="tab-btn" data-tab="rules">Rules</button>
+        <button class="tab-btn" data-tab="roles">Roles</button>
+        <button class="tab-btn" data-tab="faq">FAQ</button>
+      </div>
+
+      <!-- panels -->
+      <div id="about" class="tab-panel shown z-10 max-w-md text-pink-900">
+        <p>
+          Aknem blends extreme mic battles with Pink vibes. Everyday Events,
+          Everyday r4r &amp; wholesome members!
+        </p>
+      </div>
+      <div id="rules" class="tab-panel hidden z-10 max-w-md text-pink-900">
+        <ul class="list-disc text-left ml-6">
+          <li>Walang Corny.</li>
+          <li>Pack with style not hate.</li>
+          <li>Respect event times.</li>
+          <li>Rumespeto sa hightable.</li>
+        </ul>
+      </div>
+      <div id="roles" class="tab-panel hidden z-10 max-w-md text-pink-900">
+        <ul class="list-disc text-left ml-6">
+          <li>💖 KOB – High Table Ng Aknem</li>
+          <li>🎤 Rosters – EBK,AGE,MWA,MTS,WAY2,24/7,CHIEF</li>
+          <li>🌸 KITTIES – Member Role Ng Aknem</li>
+        </ul>
+      </div>
+      <div id="faq" class="tab-panel hidden z-10 max-w-md text-pink-900">
+        <p>
+          <strong>Q:</strong> What is packing?<br />
+          Birahan na may timer binabasihan kung clear &amp; may point.
+        </p>
+        <p class="mt-2">
+          <strong>Q:</strong> How to join?<br />Tap the button, verify &amp; hop
+          in!
+        </p>
+      </div>
+    </div>
+    <!-- /wrapper -->
+
+    <footer class="text-xs text-pink-300 py-4 z-10">
+      &copy; 2025 Aknem Ontop! Made with 💖
+    </footer>
+
+    <!-- tab switching -->
+    <script>
+      document.querySelectorAll(".tab-btn").forEach((btn) => {
+        btn.onclick = () => {
+          document
+            .querySelectorAll(".tab-btn")
+            .forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          const id = btn.dataset.tab;
+          document.querySelectorAll(".tab-panel").forEach((p) => {
+            p.classList.add("hidden");
+            p.classList.remove("shown");
+          });
+          const panel = document.getElementById(id);
+          panel.classList.remove("hidden");
+          panel.classList.add("shown");
+        };
+      });
+    </script>
+  </body>
+</html>
